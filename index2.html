@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Carrito - Donela</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f3e9;
+        }
+        .cart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        .product {
+            margin: 20px 0;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .quantity-selector button {
+            background: #ff9a9e;
+            border: none;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: white;
+        }
+        .quantity-selector input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .subtotal {
+            font-weight: bold;
+            color: #e91e63;
+        }
+        .price {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .send-btn {
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .send-btn:hover {
+            background: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h2>Donela - Postres Artesanales</h2>
+        
+        <!-- Producto 1 -->
+        <div class="product" data-price="8.00">
+            <h3>Pastel de Chocolate</h3>
+            <p>Precio unitario: <span class="price">Q8.00</span></p>
+            <div class="quantity-selector">
+                <button class="decrease">-</button>
+                <input type="number" class="quantity" value="1" min="1">
+                <button class="increase">+</button>
+            </div>
+            <p>Subtotal: <span class="subtotal">Q8.00</span></p>
+        </div>
+
+        <!-- Botón para enviar a otro formulario -->
+        <button class="send-btn" id="send-to-form">Enviar Pedido</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const products = document.querySelectorAll('.product');
+            const sendBtn = document.getElementById('send-to-form');
+
+            // Función para formatear números como moneda
+            function formatCurrency(amount) {
+                return 'Q' + amount.toFixed(2);
+            }
+
+            products.forEach(product => {
+                const price = parseFloat(product.getAttribute('data-price'));
+                const quantityInput = product.querySelector('.quantity');
+                const subtotalElement = product.querySelector('.subtotal');
+                const increaseBtn = product.querySelector('.increase');
+                const decreaseBtn = product.querySelector('.decrease');
+
+                function updateSubtotal() {
+                    const quantity = parseInt(quantityInput.value);
+                    const subtotal = quantity * price;
+                    subtotalElement.textContent = formatCurrency(subtotal);
+                }
+
+                increaseBtn.addEventListener('click', () => {
+                    quantityInput.value = parseInt(quantityInput.value) + 1;
+                    updateSubtotal();
+                });
+
+                decreaseBtn.addEventListener('click', () => {
+                    if (parseInt(quantityInput.value) > 1) {
+                        quantityInput.value = parseInt(quantityInput.value) - 1;
+                        updateSubtotal();
+                    }
+                });
+
+                quantityInput.addEventListener('input', updateSubtotal);
+            });
+
+            // Manejar el envío a otro formulario
+            sendBtn.addEventListener('click', () => {
+                const productData = [];
+                
+                document.querySelectorAll('.product').forEach(product => {
+                    const productName = product.querySelector('h3').textContent;
+                    const quantity = product.querySelector('.quantity').value;
+                    const subtotal = product.querySelector('.subtotal').textContent;
+                    
+                    productData.push({
+                        name: productName,
+                        quantity: quantity,
+                        subtotal: subtotal
+                    });
+                });
+
+                // Aquí puedes hacer lo que necesites con los datos
+                // Por ejemplo, enviarlos a otro formulario o guardarlos
+                console.log('Datos a enviar:', productData);
+                
+                // Ejemplo: Almacenar en localStorage para otro formulario
+                localStorage.setItem('cartData', JSON.stringify(productData));
+                
+                // Redireccionar a otro formulario (cambia la URL)
+                window.location.href = 'formulario-pedido.html';
+                
+                alert('Pedido enviado correctamente. Será redirigido al formulario de pago.');
+            });
+        });
+    </script>
+</body>
+</html>

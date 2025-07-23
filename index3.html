@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pedido - Donela</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f3e9;
+        }
+        .order-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .order-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <h2>Resumen de tu Pedido</h2>
+        <div id="order-summary">
+            <!-- Los productos aparecerán aquí -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderSummary = document.getElementById('order-summary');
+            const cartData = JSON.parse(localStorage.getItem('cartData')) || [];
+            
+            if(cartData.length === 0) {
+                orderSummary.innerHTML = '<p>No hay productos en tu pedido.</p>';
+                return;
+            }
+            
+            let html = '';
+            cartData.forEach(item => {
+                html += `
+                    <div class="order-item">
+                        <h3>${item.name}</h3>
+                        <p>Cantidad: ${item.quantity}</p>
+                        <p>Subtotal: ${item.subtotal}</p>
+                    </div>
+                `;
+            });
+            
+            orderSummary.innerHTML = html;
+        });
+    </script>
+</body>
+</html>
