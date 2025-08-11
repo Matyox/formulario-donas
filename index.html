@@ -193,11 +193,10 @@
                 <label for="tipoDona">Tipo de Dona</label>
                 <select id="tipoDona" name="tipoDona" required>
                     <option value="">Selecciona un tipo de dona</option>
-                    <option value="D001">Dona Glaseada Clásica</option>
-                    <option value="D002">Dona de Chocolate</option>
-                    <option value="D003">Dona Rellena de Mermelada</option>
-                    <option value="D004">Dona con Sprinkles</option>
-                    <option value="D005">Dona de Canela</option>
+                    <option value="D001">Dona con Cobertura de Chocolate</option>
+                    <option value="D002">Dona con Vainilla</option>
+                    <option value="D003">Dona con Chispas de Chocolate </option>
+                    <option value="D004">Dona conn Vainilla y Chispas de chocolate</option>
                 </select>
             </div>
             
@@ -268,7 +267,6 @@
             
             function updateDonaPreview(tipoDona) {
                 const donaPreview = document.getElementById('donaPreview');
-                const donaImage = document.getElementById('donaImage');
                 const donaName = document.getElementById('donaName');
                 const donaDescription = document.getElementById('donaDescription');
                 const donaCode = document.getElementById('donaCode');
@@ -280,34 +278,24 @@
                 
                 const donas = {
                     'D001': {
-                        name: 'Dona Glaseada Clásica',
-                        description: 'Nuestra dona tradicional con glaseado blanco brillante.',
-                        image: 'https://cdn.pixabay.com/photo/2018/04/07/15/03/doughnut-3299446_640.jpg'
+                        name: 'Dona con Cobertura de Chocolate',
+                        description: 'Nuestra dona tradicional con cobertura de chocolate.'
                     },
                     'D002': {
-                        name: 'Dona de Chocolate',
-                        description: 'Deliciosa dona cubierta con chocolate derretido.',
-                        image: 'https://cdn.pixabay.com/photo/2016/11/22/18/52/doughnut-1850019_640.jpg'
+                        name: 'Dona con Vainilla',
+                        description: 'Deliciosa dona con Vainilla.'
                     },
                     'D003': {
-                        name: 'Dona Rellena de Mermelada',
-                        description: 'Dona esponjosa rellena de mermelada de fresa casera.',
-                        image: 'https://cdn.pixabay.com/photo/2014/04/03/00/41/jam-doughnut-309819_640.png'
+                        name: 'Dona con Chispas de Chocolate',
+                        description: 'Dona esponjosa con chispas de chocolate.'
                     },
                     'D004': {
-                        name: 'Dona con Sprinkles',
-                        description: 'Dona glaseada decorada con coloridos sprinkles.',
-                        image: 'https://cdn.pixabay.com/photo/2017/01/11/11/33/cake-1971552_640.jpg'
-                    },
-                    'D005': {
-                        name: 'Dona de Canela',
-                        description: 'Dona espolvoreada con una mezcla de azúcar y canela.',
-                        image: 'https://cdn.pixabay.com/photo/2016/11/29/08/31/donuts-1868573_640.jpg'
+                        name: 'Dona con Vainilla y Chispas de chocolate',
+                        description: 'Dona esponjosa con vainilla y deliciosas chispas de chocolate.'
                     }
                 };
                 
                 if (donas[tipoDona]) {
-                    donaImage.src = donas[tipoDona].image;
                     donaName.textContent = donas[tipoDona].name;
                     donaDescription.textContent = donas[tipoDona].description;
                     donaCode.textContent = `Código: ${tipoDona}`;
@@ -320,4 +308,5 @@
     </script>
 </body>
 </html>
+
 
